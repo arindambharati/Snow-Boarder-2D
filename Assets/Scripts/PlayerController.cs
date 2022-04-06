@@ -3,17 +3,22 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
-    Rigidbody2D rb2d;
+    [SerializeField] private float timeDelay = 0.5f;
+    private Rigidbody2D rb2d;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Platform")
         {
             Debug.Log("Player dead");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Invoke("ReloadScene", timeDelay);
         }
     }
 
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -33,4 +38,6 @@ public class PlayerController : MonoBehaviour
             rb2d.AddTorque(-torqueAmount);
         }
     }
+
+
 }
