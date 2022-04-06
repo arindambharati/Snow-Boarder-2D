@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
         if (other.tag == "Platform")
         {
             Debug.Log("Player dead");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
