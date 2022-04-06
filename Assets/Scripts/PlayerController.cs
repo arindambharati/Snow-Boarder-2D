@@ -4,6 +4,16 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
     Rigidbody2D rb2d;
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Platform")
+        {
+            Debug.Log("Player dead");
+        }
+    }
+
+
     // Start is called before the first frame update
     void Awake()
     {
