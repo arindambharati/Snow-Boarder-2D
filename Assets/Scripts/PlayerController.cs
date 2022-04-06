@@ -4,6 +4,9 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
     [SerializeField] private float timeDelay = 0.5f;
+
+    [SerializeField] private new ParticleSystem particleSystem;
+
     private Rigidbody2D rb2d;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -15,18 +18,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            particleSystem.Play();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            particleSystem.Stop();
+        }
+    }
+
     private void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftArrow))
