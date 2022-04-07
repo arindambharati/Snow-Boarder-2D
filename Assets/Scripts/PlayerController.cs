@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private new ParticleSystem particleSystem;
 
     private Rigidbody2D rb2d;
+    [SerializeField] private bool right;
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -48,13 +50,27 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            rb2d.AddTorque(torqueAmount);
+            right = false;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            
+            right = true;
+        }
+    }
+
+
+    private void FixedUpdate()
+    {
+        if (right==true)
         {
             rb2d.AddTorque(-torqueAmount);
+        }
+        else if (!right)
+        {
+            rb2d.AddTorque(torqueAmount);
         }
     }
 
