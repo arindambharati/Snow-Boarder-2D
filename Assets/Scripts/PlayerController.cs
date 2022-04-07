@@ -3,20 +3,22 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
-    [SerializeField] private float timeDelay = 0.5f;
+    //[SerializeField] private float timeDelay = 0.2f;
 
     [SerializeField] private new ParticleSystem particleSystem;
+    [SerializeField] private ParticleSystem playerDeadPS;
 
     private Rigidbody2D rb2d;
     [SerializeField] private bool right;
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Platform")
         {
             Debug.Log("Player dead");
-            Invoke("ReloadScene", timeDelay);
+            rb2d.bodyType = RigidbodyType2D.Static;
+            //Destroy(gameObject,timeDelay);
+            playerDeadPS.Play();
         }
     }
 
@@ -50,13 +52,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             right = false;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            
+
             right = true;
         }
     }
@@ -64,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (right==true)
+        if (right)
         {
             rb2d.AddTorque(-torqueAmount);
         }
