@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float torqueAmount = 1f;
     [SerializeField] private bool right;
+    [SerializeField] private int score = 10;
 
     [SerializeField] private new ParticleSystem particleSystem;
     [SerializeField] private ParticleSystem playerDeadPS;
 
     [SerializeField] private UIController uIController;
-  
+   // [SerializeField] private ScoreController scoreController;
+
     private Rigidbody2D rb2d;
     
 
@@ -75,4 +78,8 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void CollectableCoins()
+    {
+        uIController.IncrementScore(score);
+    }
 }

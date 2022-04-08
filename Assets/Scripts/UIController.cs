@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
+
 public class UIController : MonoBehaviour
 {
     [SerializeField] private GameObject GameOverUI;
@@ -11,12 +13,20 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private Button restartBtn;
     [SerializeField] private Button quitBtn;
-    
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    int score = 0;
 
     private void Awake()
     {
        restartBtn.onClick.AddListener(ReloadScene);
        quitBtn.onClick.AddListener(QuitGame);
+        //scoreText = GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+        RefreshUI();
     }
 
     public void QuitGame()
@@ -42,4 +52,16 @@ public class UIController : MonoBehaviour
         NextLevelBtn.SetActive(true);
         ButtonsUI.SetActive(true);
     }
+
+    public void IncrementScore(int increment)
+    {
+        score += increment;
+        RefreshUI();
+    }
+
+    private void RefreshUI()
+    {
+        scoreText.text = "Score: " + score;
+    }
+
 }
