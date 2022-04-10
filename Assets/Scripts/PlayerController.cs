@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             particleSystem.Play();
+            SoundManager.Instance.PlaySFX(SoundManager.Sounds.PlayerMove);
+            Debug.Log("onground");
         }
     }
 
@@ -41,6 +43,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             particleSystem.Stop();
+            SoundManager.Instance.Stop(SoundManager.Sounds.PlayerMove);
+            Debug.Log("onfly");
         }
     }
 

@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get { return instance; } }
 
     
-   // public AudioSource soundEffect;
+    public AudioSource soundEffect;
     public AudioSource soundMusic;
     public SoundType[] Audio;
     private void Awake()
@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         Play(Sounds.BackgroundMusic);
+        PlaySFX(Sounds.AmbientWindSound);
     }
 
     public void Play(Sounds sound)
@@ -36,6 +37,34 @@ public class SoundManager : MonoBehaviour
             soundMusic.Play();
         }
         else{
+            Debug.LogError("Clip not found for soundtype: " + sound);
+        }
+    }
+
+    public void PlaySFX(Sounds sound)
+    {
+        AudioClip clip = getSoundClip(sound);
+        if (clip != null)
+        {
+            soundEffect.clip = clip;
+            soundEffect.Play();
+        }
+        else
+        {
+            Debug.LogError("Clip not found for soundtype: " + sound);
+        }
+    }
+
+    public void Stop(Sounds sound)
+    {
+        AudioClip clip = getSoundClip(sound);
+        if (clip != null)
+        {
+            soundEffect.clip = clip;
+            soundEffect.Stop();
+        }
+        else
+        {
             Debug.LogError("Clip not found for soundtype: " + sound);
         }
     }
@@ -57,6 +86,7 @@ public class SoundManager : MonoBehaviour
     public enum Sounds
     {
         BackgroundMusic,
+        AmbientWindSound,
         PlayerMove,
         PlayerDeath
     }
