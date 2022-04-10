@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private ParticleSystem playerDeadPS;
 
     [SerializeField] private UIController uIController;
-   // [SerializeField] private ScoreController scoreController;
+
 
     private Rigidbody2D rb2d;
     
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
             rb2d.bodyType = RigidbodyType2D.Static;
             playerDeadPS.Play();
             uIController.GameOverActiveUI();
+            SoundManager.Instance.soundMusic.Stop();
         }
     }
 

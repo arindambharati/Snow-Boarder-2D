@@ -21,7 +21,6 @@ public class UIController : MonoBehaviour
     {
        restartBtn.onClick.AddListener(ReloadScene);
        quitBtn.onClick.AddListener(QuitGame);
-        //scoreText = GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
@@ -37,6 +36,7 @@ public class UIController : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SoundManager.Instance.soundMusic.Play();
     }
 
     public void GameOverActiveUI()
